@@ -1,0 +1,40 @@
+#include <cs50.h>
+#include <ctype.h>
+#include <math.h>
+#include <stdio.h>
+#include <string.h>
+
+long long int convert(string input);
+
+int main(void)
+{
+    string input = get_string("Enter a positive integer: ");
+
+    for (int i = 0, n = strlen(input); i < n; i++)
+    {
+        if (!isdigit(input[i]))
+        {
+            printf("Invalid Input!\n");
+            return 1;
+        }
+    }
+
+    // Convert string to int
+    printf("%lli\n", convert(input));
+}
+
+
+//recursive alogithm for converting positive strings to integers. I have used long long int to allow larger integers
+//to be used as well
+long long int convert(string input)
+{
+    long long int temp = input[strlen(input) - 1] - 48;
+    if (strlen(input) <= 1)
+    {
+        return temp;
+    }
+    input[strlen(input) - 1] = '\0';
+
+    return temp + convert(input)  * 10;
+
+}
